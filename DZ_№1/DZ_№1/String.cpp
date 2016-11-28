@@ -10,6 +10,7 @@ public:
 		: size{ (int)strlen(st) }, str{ new char[size + 1] }
 	{
 		strcpy_s(str, strlen(st) + 1, st);
+		strcpy_s(str, size + 1, st);
 	}
 
 	~String()
