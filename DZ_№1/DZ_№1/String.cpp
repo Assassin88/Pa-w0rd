@@ -9,7 +9,7 @@ public:
 	String(const char* st)
 		: size{ (int)strlen(st) }, str{ new char[size + 1] }
 	{
-		strcpy_s(str, size + 1, st);
+		strcpy_s(str, size + 2, st);
 	}
 
 	~String()
