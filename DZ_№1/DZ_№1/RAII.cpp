@@ -73,24 +73,27 @@ class General
 {
 private:
 	int value = 0;
-	int count = 0;
+	static int count;
 	T* ptr = nullptr;
 public:
-	General() = default;
+	General() { ++count; }
 
-	General(int value_) 
-		: value{ value_ }, ptr{ new T(value_) }, count{ (1) }
-	{}
+	General(int value_)
+		: value{ value_ }, ptr{ new T(value_) }
+	{
+		++count;
+	}
 
-	General(const General& a) 
-		: value{ a.value }, ptr{ a.ptr }, count{ 2 }
-	{}
+	General(const General& a)
+		: value{ a.value }, ptr{ a.ptr }
+	{
+		++count;
+	}
 
 	General& operator=(const General& a)
 	{
 		if (&a != this)
 		{
-			count = 3;
 			value = a.value;
 			ptr = a.ptr;
 		}
@@ -133,7 +136,8 @@ ostream& operator<<(ostream& os, const General<T>& a)
 	}
 	return os;
 }
-
+template<typename T>
+int General<T>::count = 0;
 //==================================================================================
 template<typename T>
 class Assignment

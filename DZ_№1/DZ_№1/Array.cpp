@@ -11,7 +11,7 @@ private:
 public:
 
 	Array(int str_, int col_)
-		: arr{ new float*[str] }, str{ str_ }, col{ col_ }
+		:  str{ str_ }, col{ col_ }
 	{
 		arr = new float*[str];
 		for (int i = 0; i < str; ++i)
@@ -50,9 +50,10 @@ public:
 	{
 		if (this != &arr_)
 		{
+			delete[] arr;
 			str = arr_.str;
 			col = arr_.col;
-			delete[] arr;
+			
 			arr = new float*[arr_.str];
 			for (int i = 0; i < str; ++i)
 			{
@@ -260,11 +261,18 @@ public:
 
 	const Array& operator*(float value)
 	{
-		for (int i = 0; i < str; ++i)
+		if (value == 0)
 		{
-			for (int j = 0; j < col; ++j)
+			cout << "Error!!! Invalid value.\n\n";
+		}
+		else
+		{
+			for (int i = 0; i < str; ++i)
 			{
-				arr[i][j] *= value;
+				for (int j = 0; j < col; ++j)
+				{
+					arr[i][j] *= value;
+				}
 			}
 		}
 		return *this;
@@ -272,11 +280,18 @@ public:
 
 	const Array& operator/(float value)
 	{
-		for (int i = 0; i < str; ++i)
+		if (value == 0)
 		{
-			for (int j = 0; j < col; ++j)
+			cout << "Error!!! Invalid value.\n\n";
+		}
+		else
+		{
+			for (int i = 0; i < str; ++i)
 			{
-				arr[i][j] /= value;
+				for (int j = 0; j < col; ++j)
+				{
+					arr[i][j] /= value;
+				}
 			}
 		}
 		return *this;
@@ -367,6 +382,10 @@ public:
 		return !operator == (arr_);
 	}
 
+	bool square_arr() const
+	{
+		return str == col;
+	}
 
 	bool null_arr() const
 	{
@@ -383,75 +402,93 @@ public:
 
 	bool single_arr() const
 	{
-		for (int i = 0; i < str; ++i)
+		if (this->square_arr())
 		{
-			for (int j = 0; j < col; ++j)
+			for (int i = 0; i < str; ++i)
 			{
-				if (arr[i][j] != 0 || (arr[i][j] != 1 && i == j))
+				for (int j = 0; j < col; ++j)
 				{
-					return false;
+					if (arr[i][j] != 0 || (arr[i][j] != 1 && i == j))
+					{
+						return false;
+					}
 				}
-			}
-		}
-		return true;
-	}
-
-	bool square_arr() const
-	{
-		return str == col;
-	}
-
-	bool diagonal_arr()	const
-	{
-		for (int i = 0; i < str; ++i)
-		{
-			for (int j = 0; j < col; ++j) {
-				if (j == i)
-					continue;
-				if (arr[i][j] != 0)
-					return false;
 			}
 			return true;
 		}
+		return false;
+	}
+
+	
+
+	bool diagonal_arr()	const
+	{
+		if (this->square_arr())
+		{
+			for (int i = 0; i < str; ++i)
+			{
+				for (int j = 0; j < col; ++j)
+				{
+					if (j == i)
+						continue;
+					if (arr[i][j] != 0)
+						return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	bool symmetric_arr() const
 	{
-		for (int i = 0; i < str; ++i)
+		if (this->square_arr())
 		{
-			for (int j = 0; j < col; ++j)
+			for (int i = 0; i < str; ++i)
 			{
-				if (arr[i][j] != arr[j][i])
-					return false;
+				for (int j = 0; j < col; ++j)
+				{
+					if (arr[i][j] != arr[j][i])
+						return false;
+				}
 			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	bool upper_tr_arr()
 	{
-		for (int i = 1; i < str; ++i)
+		if (this->square_arr())
 		{
-			for (int j = 0; j < i; ++j)
+			for (int i = 1; i < str; ++i)
 			{
-				if (arr[j][i] != 0)
-					return false;
+				for (int j = 0; j < i; ++j)
+				{
+					if (arr[j][i] != 0)
+						return false;
+				}
 			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	bool lower_tr_arr()
 	{
-		for (int i = 0; i < str - 1; ++i)
+		if (this->square_arr())
 		{
-			for (int j = i + 1; j < col; ++j)
+			for (int i = 0; i < str - 1; ++i)
 			{
-				if (arr[i][j] != 0)
-					return false;
+				for (int j = i + 1; j < col; ++j)
+				{
+					if (arr[i][j] != 0)
+						return false;
+				}
 			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	Array exponent(int value)

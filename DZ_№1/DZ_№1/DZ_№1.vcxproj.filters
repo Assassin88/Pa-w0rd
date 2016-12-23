@@ -13,10 +13,19 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы ресурсов\DZ_№2">
+      <UniqueIdentifier>{31057641-e2a3-41f7-8cc1-814e657e7915}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="String.cpp">
       <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="Array.cpp">
+      <Filter>Файлы ресурсов\DZ_№2</Filter>
+    </ClCompile>
+    <ClCompile Include="RAII.cpp">
+      <Filter>Файлы ресурсов\DZ_№2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
